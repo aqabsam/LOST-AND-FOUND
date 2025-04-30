@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Page - LOST AND FOUND</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+        .sub-header {
+            background: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .slider-container {
+            max-width: 800px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: center;
+        }
+        .slide img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .slide h3 {
+            margin: 10px 0 5px;
+            font-size: 24px;
+            color: black;
+        }
+        .slide p {
+            font-size: 16px;
+            color: #555;
+        }
+        .nav-buttons {
+            text-align: center;
+            margin: 20px;
+        }
+        .nav-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 1px black solid;
+        }
+        .comment-box h3{
+            color: black;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;family=Poppins:ital,wght@1,200&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css">
+</head>
+<body>
+    <!-- edit from here  -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="/images/college_logo.jpg"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+
+                <!-- edit upto here -->
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="lost.html">REPORT LOST ITEMS</a></li>
+                    <li><a href="search.html">SEARCH LOST ITEMS</a></li>
+                    <li><a href="found.html">FOUND</a></li>
+                    <li><a href="team.html">TEAM</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="admin-login.html">ADMIN</a></li>
+                </ul>
+            </div>
+           
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Team member page</h1>
+        
+        <div class="slider-container">
+            <div class="slides" id="slides">
+                
+                <div class="slide">
+                    <img src="/images/aqabnew.jpeg" alt="Mohd Aqab Sami">
+                    <h3>Mohd Aqab Sami</h3>
+                    <p>Aqab brings energy and innovation to the team. He actively contributes to digital initiatives and excels in problem-solving and event coordination. His leadership and vision make him a reliable and dynamic student voice.</p>
+                </div>
+                <div class="slide">
+                    <img src="/images/Anshika.jpg" alt="Anshika Raj">
+                    <h3>Anshika Raj</h3>
+                    <p>Anshika is a dedicated and highly organized student representative who ensures communication and coordination between faculty and students flows seamlessly. She's passionate about community involvement and excels in managing student concerns with empathy and efficiency.</p>
+                </div>
+                <div class="slide">
+                    <img src="/images/jafar.jpg" alt="Jafar Khan Suri">
+                    <h3>Jafar Khan Suri</h3>
+                    <p>Jafar is known for his strategic thinking and excellent communication skills. His experience in organizing student outreach programs and guiding peer collaboration ensures our projects stay on track and impactful.</p>
+                </div>
+                <div class="slide">
+                    <img src="/images/zaid.jpg" alt="Md Zaid Alam">
+                    <h3>Md Zaid Alam</h3>
+                    <p>Zaid is a tech enthusiast with a strong background in web technologies. His logical thinking and commitment to the team make him a go-to person for implementing smart digital solutions in our initiatives.</p>
+                </div>
+                <div class="slide">
+                    <img src="/images/kounain.jpg" alt="Md Kounain">
+                    <h3>Md Kounain</h3>
+                    <p>Kounain has a creative mindset and a natural ability to connect with others. He focuses on bringing innovation into the student body's daily operations and supports a collaborative environment where everyone feels heard.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="moveSlide(-1)">Previous</button>
+                <button onclick="moveSlide(1)">Next</button>
+            </div>
+        </div>
+        <script>
+            let currentSlide = 0;
+            const slides = document.getElementById('slides');
+            const totalSlides = slides.children.length;
+    
+            function moveSlide(direction) {
+                currentSlide += direction;
+                if (currentSlide < 0) currentSlide = totalSlides - 1;
+                if (currentSlide >= totalSlides) currentSlide = 0;
+                slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+        </script>
+<!-- commenting the comment box -->
+<!-- <div class="comment-box">
+    <h3>Leave a Comment</h3>
+    <form class="comment-form">
+        <input type="email" placeholder="Enter Emails">
+        <textarea rows="5" placeholder="Your comment"></textarea>
+        <button type="submit" class="hero-btn red-btn">POST COMMENT</button>
+    </form>
+</div> -->
+
+<!-- Admin Login Section -->
+<div class="admin-login-section" style="max-width: 600px; margin: 50px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
+    <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Admin Access</h3>
+    <p style="text-align: center; margin-bottom: 20px;">Administrators can access the dashboard to manage lost and found items.</p>
+    <div style="text-align: center;">
+        <a href="admin-login.html" class="hero-btn red-btn" style="display: inline-block; text-decoration: none; padding: 10px 20px; background-color: #4CAF50; color: white; border-radius: 5px; transition: background-color 0.3s;">Admin Login</a>
+    </div>
+</div>
+
+</section>
+<!-- footer -->
+
+
+
+    <!-- java script for toggle menu -->
+    <script>
+        var navLinks =document.getElementById("navLinks");
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+    
+    <!-- java end here
+     -->
+     <section class="footer">
+        <h4>Follow Us On</h4>
+        <p>We will respond to your email<br> as soon as possible</p>
+             <div class="icons">
+                <a href="https://www.facebook.com/aqab.sami"target="_blank">
+                <img src="/images/facebook (1).png">
+            </a>
+            <a href="https://www.instagram.com/aqabsami/?hl=en"target="_blank">
+                <img src="/images/social.png">
+            </a>
+            <a href="https://www.linkedin.com/in/mohd-aqab-sami-a521a327b/"target="_blank">
+                <img src="/images/linkedin.png">
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&to=aqabsami02@gmail.com" target="_blank">
+
+                <img src="/images/GMAIL.png">
+            </a>
+            
+             </div>
+    </section>
+</body>
+</html>

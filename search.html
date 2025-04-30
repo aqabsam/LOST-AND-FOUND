@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOST AND FOUND</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <style>
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .search-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        .search-filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .search-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .search-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .result-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .result-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .result-details {
+            padding: 15px;
+        }
+        
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .result-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .result-description {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .search-input-group {
+                flex-direction: column;
+            }
+            
+            .search-filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+
+        .contact-admin {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-admin p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .admin-email {
+            color: #4CAF50;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .admin-email:hover {
+            text-decoration: underline;
+        }
+
+        .claim-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .claim-btn:hover {
+            background-color: #45a049;
+        }
+
+        .claim-form {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .claim-form input,
+        .claim-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .claim-form textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .claim-form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .claim-form-buttons button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .submit-claim-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .cancel-claim-btn {
+            background-color: #ff4444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="/images/college_logo.jpg"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="lost.html">REPORT LOST ITEMS</a></li>
+                    <li><a href="search.html">SEARCH LOST ITEMS</a></li>
+                    <li><a href="found.html">FOUND</a></li>
+                    <li><a href="team.html">TEAM</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="admin-login.html">ADMIN</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Search The Lost Items</h1>
+    </section>
+
+    <section class="search-container">
+        <div class="search-box">
+            <div class="search-input-group">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for lost items...">
+                <button class="search-btn" onclick="searchItems()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div class="search-filters">
+                <div class="filter-group">
+                    <select id="categoryFilter" onchange="searchItems()">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="documents">Documents</option>
+                        <option value="books">Books</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="dateFilter" onchange="searchItems()">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="week">Last 7 Days</option>
+                        <option value="month">Last 30 Days</option>
+                        <option value="year">Last Year</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="locationFilter" onchange="searchItems()">
+                        <option value="">All Locations</option>
+                        <option value="campus">Campus</option>
+                        <option value="library">Library</option>
+                        <option value="cafeteria">Cafeteria</option>
+                        <option value="classroom">Classroom</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Searching...</p>
+        </div>
+
+        <div id="searchResults" class="search-results">
+            <!-- Results will be populated by JavaScript -->
+        </div>
+
+        <div class="contact-admin">
+            <p>If you found any of these items, please contact the admin at:</p>
+            <a href="https://mail.google.com/mail/?view=cm&to=aqabsami02@gmail.com" target="_blank"class="admin-email">aqabsami02@gmail.com</a>
+        </div>
+    </section>
+
+    <section class="footer">
+        <h4>Follow Us On</h4>
+        <p>We will respond to your email<br> as soon as possible</p>
+             <div class="icons">
+                <a href="https://www.facebook.com/aqab.sami"target="_blank">
+                <img src="/images/facebook (1).png">
+            </a>
+            <a href="https://www.instagram.com/aqabsami/?hl=en"target="_blank">
+                <img src="/images/social.png">
+            </a>
+            <a href="https://www.linkedin.com/in/mohd-aqab-sami-a521a327b/"target="_blank">
+                <img src="/images/linkedin.png">
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&to=aqabsami02@gmail.com" target="_blank">
+
+                <img src="/images/GMAIL.png">
+            </a>
+            
+             </div>
+    </section>
+
+    <script>
+        // Toggle menu functionality
+        var navLinks = document.getElementById("navLinks");
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+
+        // Search functionality
+        function searchItems() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            
+            // Show loading spinner
+            document.querySelector('.loading').style.display = 'block';
+            document.getElementById('searchResults').style.display = 'none';
+            
+            // Get lost items from localStorage
+            const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+            
+            // Filter items based on search criteria
+            const filteredItems = lostItems.filter(item => {
+                const matchesSearch = item.itemName.toLowerCase().includes(searchInput) ||
+                                    item.itemDescription.toLowerCase().includes(searchInput);
+                const matchesCategory = !categoryFilter || item.itemCategory === categoryFilter;
+                const matchesLocation = !locationFilter || item.lostLocation.toLowerCase().includes(locationFilter.toLowerCase());
+                
+                // Date filtering
+                let matchesDate = true;
+                if (dateFilter) {
+                    const itemDate = new Date(item.lostDate);
+                    const today = new Date();
+                    const diffTime = Math.abs(today - itemDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    switch(dateFilter) {
+                        case 'today':
+                            matchesDate = diffDays <= 1;
+                            break;
+                        case 'week':
+                            matchesDate = diffDays <= 7;
+                            break;
+                        case 'month':
+                            matchesDate = diffDays <= 30;
+                            break;
+                        case 'year':
+                            matchesDate = diffDays <= 365;
+                            break;
+                    }
+                }
+                
+                return matchesSearch && matchesCategory && matchesLocation && matchesDate;
+            });
+            
+            // Display results
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+            
+            if (filteredItems.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 48px; color: #ddd; margin-bottom: 20px;"></i>
+                        <p>No items found matching your search criteria</p>
+                    </div>
+                `;
+            } else {
+                filteredItems.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    card.innerHTML = `
+                        <img src="${item.image || '/images/sample-item.jpg'}" alt="${item.itemName}" class="result-image">
+                        <div class="result-details">
+                            <h3 class="result-title">${item.itemName}</h3>
+                            <p class="result-info"><i class="fas fa-tag"></i> Category: ${item.itemCategory}</p>
+                            <p class="result-description">${item.itemDescription}</p>
+                            <button class="claim-btn" onclick="showClaimForm('${item.id}')">
+                                <i class="fas fa-hand-holding"></i> Claim This Item
+                            </button>
+                            <div id="claimForm-${item.id}" class="claim-form">
+                                <h4>Claim Details</h4>
+                                <input type="hidden" id="claimItemId-${item.id}" value="${item.id}">
+                                <input type="text" id="claimName-${item.id}" placeholder="Your Name" required>
+                                <input type="email" id="claimEmail-${item.id}" placeholder="Your Email" required>
+                                <input type="tel" id="claimPhone-${item.id}" placeholder="Your Phone Number" required>
+                                <textarea id="claimDetails-${item.id}" placeholder="Please provide details about how you lost this item and any identifying features..." required></textarea>
+                                <div class="claim-form-buttons">
+                                    <button class="submit-claim-btn" onclick="submitClaim('${item.id}')">Submit Claim</button>
+                                    <button class="cancel-claim-btn" onclick="hideClaimForm('${item.id}')">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(card);
+                });
+            }
+            
+            // Hide loading spinner and show results
+            document.querySelector('.loading').style.display = 'none';
+            resultsContainer.style.display = 'grid';
+        }
+
+        // Show claim form
+        function showClaimForm(itemId) {
+            const form = document.getElementById(`claimForm-${itemId}`);
+            form.style.display = 'block';
+        }
+
+        // Hide claim form
+        function hideClaimForm(itemId) {
+            const form = document.getElementById(`claimForm-${itemId}`);
+            form.style.display = 'none';
+        }
+
+        // Submit claim
+        function submitClaim(itemId) {
+            const form = document.getElementById(`claimForm-${itemId}`);
+            const name = document.getElementById(`claimName-${itemId}`).value;
+            const email = document.getElementById(`claimEmail-${itemId}`).value;
+            const phone = document.getElementById(`claimPhone-${itemId}`).value;
+            const details = document.getElementById(`claimDetails-${itemId}`).value;
+
+            if (!name || !email || !phone || !details) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Get the item details
+            const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+            const item = lostItems.find(item => String(item.id) === String(itemId));
+
+            if (item) {
+                // Create claim object with a unique ID
+                const claim = {
+                    id: Date.now().toString(), // Add unique ID for the claim
+                    itemId: itemId,
+                    itemName: item.itemName,
+                    claimantName: name,
+                    claimantEmail: email,
+                    claimantPhone: phone,
+                    claimDetails: details,
+                    claimDate: new Date().toISOString(),
+                    status: 'pending' // Add status field
+                };
+
+                // Get existing claims
+                const claims = JSON.parse(localStorage.getItem('claims') || '[]');
+                claims.push(claim);
+                localStorage.setItem('claims', JSON.stringify(claims));
+
+                // Show success message
+                alert('Your claim has been submitted successfully. The admin will review it and contact you soon.');
+                hideClaimForm(itemId);
+                
+                // Clear the form
+                form.reset();
+            } else {
+                console.error('Item not found:', itemId);
+                alert('Item not found. Please try again.');
+            }
+        }
+
+        // Add event listener for search input
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                searchItems();
+            }
+        });
+
+        // Initial search on page load
+        searchItems();
+    </script>
+</body>
+</html>

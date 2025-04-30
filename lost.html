@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOST AND FOUND</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        .image-preview {
+            margin-top: 10px;
+            max-width: 200px;
+            max-height: 200px;
+            display: none;
+        }
+        
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .help-text {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- edit from here  -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="/images/college_logo.jpg"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+
+                <!-- edit upto here -->
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="lost.html">REPORT LOST ITEMS</a></li>
+                    <li><a href="search.html">SEARCH LOST ITEMS</a></li>
+                    <li><a href="found.html">FOUND</a></li>
+                    <li><a href="team.html">TEAM</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="admin-login.html">ADMIN</a></li>
+                </ul>
+            </div>
+            
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Report The Lost item</h1>
+    </section>
+
+    <section class="contact-us">
+        <div class="form-container">
+            <form id="lostItemForm">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-user"></i> Personal Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="branch">Branch</label>
+                            <input type="text" id="branch" name="branch" placeholder="Enter your branch" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item Details Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-box"></i> Item Details</h2>
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" name="itemName" placeholder="What did you lose?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCategory">Item Category</label>
+                        <select id="itemCategory" name="itemCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="documents">Documents</option>
+                            <option value="books">Books</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Item Description</label>
+                        <textarea id="itemDescription" name="itemDescription" rows="4" placeholder="Describe your lost item in detail (color, size, brand, distinguishing features)" required></textarea>
+                        <div class="help-text">Be as specific as possible to help others identify your item</div>
+                    </div>
+                </div>
+                
+                <!-- Location and Time Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-map-marker-alt"></i> Location and Time</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lostDate">Date Lost</label>
+                            <input type="date" id="lostDate" name="lostDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lostTime">Approximate Time</label>
+                            <input type="time" id="lostTime" name="lostTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lostLocation">Location Lost</label>
+                        <input type="text" id="lostLocation" name="lostLocation" placeholder="Where did you lose the item?" required>
+                        <div class="help-text">Be specific about the location (building, room, area)</div>
+                    </div>
+                </div>
+                
+                <!-- Image Upload Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-image"></i> Item Image</h2>
+                    <div class="form-group">
+                        <label for="itemImage">Upload Image of Similar Item</label>
+                        <input type="file" id="itemImage" name="itemImage" accept="image/*">
+                        <div class="help-text">Upload a photo of a similar item to help with identification</div>
+                        <img id="imagePreview" class="image-preview" src="#" alt="Preview">
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Lost Item Report</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <section class="footer">
+        <h4>Follow Us On</h4>
+        <p>We will respond to your email<br> as soon as possible</p>
+             <div class="icons">
+                <a href="https://www.facebook.com/aqab.sami"target="_blank">
+                <img src="/images/facebook (1).png">
+            </a>
+            <a href="https://www.instagram.com/aqabsami/?hl=en"target="_blank">
+                <img src="/images/social.png">
+            </a>
+            <a href="https://www.linkedin.com/in/mohd-aqab-sami-a521a327b/"target="_blank">
+                <img src="/images/linkedin.png">
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&to=aqabsami02@gmail.com" target="_blank">
+
+                <img src="/images/GMAIL.png">
+            </a>
+            
+             </div>
+    </section>
+
+    <!-- JavaScript for toggle menu and form functionality -->
+    <script>
+        // Toggle menu functionality
+        var navLinks = document.getElementById("navLinks");
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+        
+        // Image preview functionality
+        document.getElementById('itemImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form validation and submission
+        document.getElementById('lostItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const itemName = document.getElementById('itemName').value;
+            
+            if (!name || !email || !phone || !itemName) {
+                alert('Please fill in all required fields');
+                return false;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            // Phone validation
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
+                alert('Please enter a valid 10-digit phone number');
+                return false;
+            }
+
+            // Get form data
+            const formData = {
+                id: Date.now().toString(), // Unique ID for the item as a string
+                name: name,
+                email: email,
+                phone: phone,
+                branch: document.getElementById('branch').value,
+                itemName: itemName,
+                itemCategory: document.getElementById('itemCategory').value,
+                itemDescription: document.getElementById('itemDescription').value,
+                lostDate: document.getElementById('lostDate').value,
+                lostTime: document.getElementById('lostTime').value,
+                lostLocation: document.getElementById('lostLocation').value,
+                image: document.getElementById('imagePreview').src,
+                dateReported: new Date().toISOString()
+            };
+
+            // Get existing items from localStorage
+            let lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+            
+            // Add new item
+            lostItems.push(formData);
+            
+            // Save back to localStorage
+            localStorage.setItem('lostItems', JSON.stringify(lostItems));
+
+            // Show success message
+            alert('Your lost item has been reported successfully!');
+            
+            // Reset form
+            this.reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

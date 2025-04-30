@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOST AND FOUND</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;family=Poppins:ital,wght@1,200&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css">
+</head>
+<body>
+    <!-- edit from here  -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="/images/college_logo.jpg"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+
+                <!-- edit upto here -->
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="lost.html">REPORT LOST ITEMS</a></li>
+                    <li><a href="search.html">SEARCH LOST ITEMS</a></li>
+                    <li><a href="found.html">FOUND</a></li>
+                    <li><a href="team.html">TEAM</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="admin-login.html">ADMIN</a></li>
+                </ul>
+            </div>
+            
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>About  Us</h1>
+    </section>
+<!-- ABOUT US CONTENT -->
+<section class="about-us">
+    <div class="row">
+        <div class="about-col">
+            <h1>  LOST AND FOUND</h1>
+            <p>"Lost and Found" is a dedicated platform designed to help individuals recover misplaced belongings efficiently and securely. Whether you've lost an item or found something someone else may be missing, our site enables you to upload details such as the item's description, location, and time of loss or discovery. When entries match, both parties are connected to facilitate the return. Our goal is to foster a responsible, community-driven approach to lost property management.</p>
+            <a href="" class="hero-btn red-btn">EXPLOXE NOW</a>
+        </div>
+        <div class="about-col">
+            <img src="/images/report.jpeg">
+        </div>
+    </div>
+</section>
+
+
+<!-- footer -->
+<section class="footer">
+    <h4>Follow Us On</h4>
+    <p>We will respond to your email<br> as soon as possible</p>
+         <div class="icons">
+            <a href="https://www.facebook.com/aqab.sami"target="_blank">
+            <img src="/images/facebook (1).png">
+        </a>
+        <a href="https://www.instagram.com/aqabsami/?hl=en"target="_blank">
+            <img src="/images/social.png">
+        </a>
+        <a href="https://www.linkedin.com/in/mohd-aqab-sami-a521a327b/"target="_blank">
+            <img src="/images/linkedin.png">
+        </a>
+        <a href="https://mail.google.com/mail/?view=cm&to=aqabsami02@gmail.com" target="_blank">
+
+            <img src="/images/GMAIL.png">
+        </a>
+        
+         </div>
+</section>
+
+
+    <!-- java script for toggle menu -->
+    <script>
+        var navLinks =document.getElementById("navLinks");
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+    <!-- java end here
+     -->
+</body>
+</html>
